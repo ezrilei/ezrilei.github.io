@@ -1,19 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://ezrilei.github.io</id>
     <title>my blog</title>
-    <updated>2021-07-05T15:33:43.018Z</updated>
+    <updated>2021-07-06T00:30:33.599Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://ezrilei.github.io"/>
+    <link rel="self" href="https://ezrilei.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://ezrilei.github.io/images/avatar.png</logo>
+    <icon>https://ezrilei.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, my blog</rights>
     <entry>
+        <title type="html"><![CDATA[使用R语言批量写word文档]]></title>
+        <id>https://ezrilei.github.io/post/shi-yong-r-yu-yan-pi-liang-xie-word-wen-dang/</id>
+        <link href="https://ezrilei.github.io/post/shi-yong-r-yu-yan-pi-liang-xie-word-wen-dang/">
+        </link>
+        <updated>2021-07-06T00:26:22.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="原理">原理</h2>
+<p>发展党员的批文有既定的模板。这样在召开党委会集体研究决定后，我们只需要把前期收集的.xlsx表格中的信息，填写到作为模板的word文档中的对应位置即可。</p>
+<p>为了方便定位，我们可以在制作模板时，就把要填写的地方做好标记。比如使用关键词<code>name.person</code>（发展对象的姓名）、<code>name.cpc.branch</code>（党支部名称。如果批文下发到党总支或者社区党委，这里为党总支名称或社区党委名称）、<code>serial_num</code>（预审通过后将下发《入党志愿书》，这里为省委统一印制的《入党志愿书》编号）。</p>
+<p>package <code>xlsx</code>用于读取.xlsx表格。<br>
+package <code>officer</code>用于处理.docx文档。包括读取文档，替换关键词，添加分页符，输出.docx文档。<br>
+package<code>stringr</code>用于文本处理，在标记输出文档顺序的时候。 （如果不标记顺序，合并的文档可能是根据a-z的顺序排列的，而不是表格中的序号。）</p>
+<hr>
+<h2 id="准备工作">准备工作</h2>
+<ul>
+<li>准备包含批文所需信息的.xlsx表格</li>
+<li>准备作为批文模板的.docx文档</li>
+</ul>
+<hr>
+<h2 id="set-up">set up</h2>
+<pre><code class="language-r">setwd(&quot;~/.../RwkSpace&quot;)
+
+library(xlsx)
+library(officer)
+library(stringr)
+
+# create dir
+if (!dir.exists('output')) {
+  dir.create('output')
+}
+</code></pre>
+<h2 id="读取xlsx">读取.xlsx</h2>
+<p>调用xlsx package 的 read.xlsx函数  读取.xlsx表格<br>
+稍后将把 .xlsx表格中的信息 填写到批文中。</p>
+<pre><code class="language-r">info.tt &lt;- read.xlsx(file = &quot;./2021年第一批发展对象_信息采集.xlsx&quot;,
+                     sheetIndex = 3, startRow = 2, stringsAsFactors = FALSE
+                     ) 
+</code></pre>
+<h2 id="循环替换模板中的文字">循环替换模板中的文字</h2>
+<pre><code class="language-r">#### write word documents ####
+for(i in 1:nrow(info.tt)){
+  # 读取 模板.docx
+  officer_doc &lt;- officer::read_docx(path = &quot;./【模板】预审意见.docx&quot;)
+  
+  # def variable
+  name.person &lt;- info.tt$姓名[i]
+  name.cpc.branch &lt;- info.tt$批复下发到的党支部[i]
+  serial_num &lt;- info.tt$入党志愿书编号[i] %&gt;% as.character()
+  
+  # 替换
+  doc_replaced &lt;- officer_doc %&gt;%
+    body_replace_all_text(old_value = &quot;name.person&quot;, 
+                          new_value = name.person, 
+                          only_at_cursor = FALSE
+    ) %&gt;%
+    body_replace_all_text(old_value = &quot;name.cpc.branch&quot;, 
+                          new_value = name.cpc.branch, 
+                          only_at_cursor = FALSE
+    ) %&gt;% 
+    body_replace_all_text(old_value = &quot;serial_num&quot;, 
+                          new_value = serial_num, 
+                          only_at_cursor = FALSE
+                          )
+                          
+  # &quot;./output/【张三】预审的意见.docx&quot;
+  print(doc_replaced, 
+        target = paste0(&quot;./output/&quot;, i,&quot;【&quot;, name.person, &quot;】&quot;, &quot;预审的意见.docx&quot;)
+  )
+
+}
+</code></pre>
+<h2 id="merge-all-word-docx-into-a-single-file">merge all word docx into a single file</h2>
+<p>为了方便打印 将生成的数个word文档 合并成一个文档 中间用分页符隔开</p>
+<pre><code class="language-r">#### merge all word docx ####
+# get ordered
+doc.path &lt;- paste0(&quot;./output/&quot;, 
+                   list.files(path = &quot;./output&quot;)
+)
+idx &lt;- doc.path %&gt;% str_extract_all(pattern = &quot;\\d+&quot;) %&gt;% unlist() %&gt;% as.numeric() %&gt;% order() 
+doc.path &lt;- doc.path[idx]
+
+# merge doc
+doc_merge &lt;- officer::read_docx(path = doc.path[1])
+
+for(i in 2:length(doc.path)){
+  doc_merge &lt;- doc_merge %&gt;%
+    body_add_break() %&gt;% # add a page break into an rdocx object
+    body_add_docx(src = doc.path[i]) # add content of a docx into an rdocx object
+}
+
+
+print(doc_merge, 
+      target = paste0(&quot;./&quot;, &quot;【&quot;, &quot;All&quot;, &quot;】&quot;, &quot;预审的意见.docx&quot;)
+)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Testing]]></title>
-        <id>http://localhost:4000/post/testing/</id>
-        <link href="http://localhost:4000/post/testing/">
+        <id>https://ezrilei.github.io/post/testing/</id>
+        <link href="https://ezrilei.github.io/post/testing/">
         </link>
         <updated>2021-07-05T14:36:02.000Z</updated>
         <content type="html"><![CDATA[<p>A test</p>
@@ -21,8 +118,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>http://localhost:4000/post/hello-gridea/</id>
-        <link href="http://localhost:4000/post/hello-gridea/">
+        <id>https://ezrilei.github.io/post/hello-gridea/</id>
+        <link href="https://ezrilei.github.io/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>

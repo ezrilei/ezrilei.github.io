@@ -1,0 +1,267 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>使用R语言批量写word文档 | my blog</title>
+<link rel="shortcut icon" href="https://ezrilei.github.io/favicon.ico?v=1625531431307">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://ezrilei.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="使用R语言批量写word文档 | my blog - Atom Feed" href="https://ezrilei.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="原理
+发展党员的批文有既定的模板。这样在召开党委会集体研究决定后，我们只需要把前期收集的.xlsx表格中的信息，填写到作为模板的word文档中的对应位置即可。
+为了方便定位，我们可以在制作模板时，就把要填写的地方做好标记。比如使用关键词na..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://ezrilei.github.io">
+  <img class="avatar" src="https://ezrilei.github.io/images/avatar.png?v=1625531431307" alt="">
+  </a>
+  <h1 class="site-title">
+    my blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              使用R语言批量写word文档
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-07-06
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="原理">原理</h2>
+<p>发展党员的批文有既定的模板。这样在召开党委会集体研究决定后，我们只需要把前期收集的.xlsx表格中的信息，填写到作为模板的word文档中的对应位置即可。</p>
+<p>为了方便定位，我们可以在制作模板时，就把要填写的地方做好标记。比如使用关键词<code>name.person</code>（发展对象的姓名）、<code>name.cpc.branch</code>（党支部名称。如果批文下发到党总支或者社区党委，这里为党总支名称或社区党委名称）、<code>serial_num</code>（预审通过后将下发《入党志愿书》，这里为省委统一印制的《入党志愿书》编号）。</p>
+<p>package <code>xlsx</code>用于读取.xlsx表格。<br>
+package <code>officer</code>用于处理.docx文档。包括读取文档，替换关键词，添加分页符，输出.docx文档。<br>
+package<code>stringr</code>用于文本处理，在标记输出文档顺序的时候。 （如果不标记顺序，合并的文档可能是根据a-z的顺序排列的，而不是表格中的序号。）</p>
+<hr>
+<h2 id="准备工作">准备工作</h2>
+<ul>
+<li>准备包含批文所需信息的.xlsx表格</li>
+<li>准备作为批文模板的.docx文档</li>
+</ul>
+<hr>
+<h2 id="set-up">set up</h2>
+<pre><code class="language-r">setwd(&quot;~/.../RwkSpace&quot;)
+
+library(xlsx)
+library(officer)
+library(stringr)
+
+# create dir
+if (!dir.exists('output')) {
+  dir.create('output')
+}
+</code></pre>
+<h2 id="读取xlsx">读取.xlsx</h2>
+<p>调用xlsx package 的 read.xlsx函数  读取.xlsx表格<br>
+稍后将把 .xlsx表格中的信息 填写到批文中。</p>
+<pre><code class="language-r">info.tt &lt;- read.xlsx(file = &quot;./2021年第一批发展对象_信息采集.xlsx&quot;,
+                     sheetIndex = 3, startRow = 2, stringsAsFactors = FALSE
+                     ) 
+</code></pre>
+<h2 id="循环替换模板中的文字">循环替换模板中的文字</h2>
+<pre><code class="language-r">#### write word documents ####
+for(i in 1:nrow(info.tt)){
+  # 读取 模板.docx
+  officer_doc &lt;- officer::read_docx(path = &quot;./【模板】预审意见.docx&quot;)
+  
+  # def variable
+  name.person &lt;- info.tt$姓名[i]
+  name.cpc.branch &lt;- info.tt$批复下发到的党支部[i]
+  serial_num &lt;- info.tt$入党志愿书编号[i] %&gt;% as.character()
+  
+  # 替换
+  doc_replaced &lt;- officer_doc %&gt;%
+    body_replace_all_text(old_value = &quot;name.person&quot;, 
+                          new_value = name.person, 
+                          only_at_cursor = FALSE
+    ) %&gt;%
+    body_replace_all_text(old_value = &quot;name.cpc.branch&quot;, 
+                          new_value = name.cpc.branch, 
+                          only_at_cursor = FALSE
+    ) %&gt;% 
+    body_replace_all_text(old_value = &quot;serial_num&quot;, 
+                          new_value = serial_num, 
+                          only_at_cursor = FALSE
+                          )
+                          
+  # &quot;./output/【张三】预审的意见.docx&quot;
+  print(doc_replaced, 
+        target = paste0(&quot;./output/&quot;, i,&quot;【&quot;, name.person, &quot;】&quot;, &quot;预审的意见.docx&quot;)
+  )
+
+}
+</code></pre>
+<h2 id="merge-all-word-docx-into-a-single-file">merge all word docx into a single file</h2>
+<p>为了方便打印 将生成的数个word文档 合并成一个文档 中间用分页符隔开</p>
+<pre><code class="language-r">#### merge all word docx ####
+# get ordered
+doc.path &lt;- paste0(&quot;./output/&quot;, 
+                   list.files(path = &quot;./output&quot;)
+)
+idx &lt;- doc.path %&gt;% str_extract_all(pattern = &quot;\\d+&quot;) %&gt;% unlist() %&gt;% as.numeric() %&gt;% order() 
+doc.path &lt;- doc.path[idx]
+
+# merge doc
+doc_merge &lt;- officer::read_docx(path = doc.path[1])
+
+for(i in 2:length(doc.path)){
+  doc_merge &lt;- doc_merge %&gt;%
+    body_add_break() %&gt;% # add a page break into an rdocx object
+    body_add_docx(src = doc.path[i]) # add content of a docx into an rdocx object
+}
+
+
+print(doc_merge, 
+      target = paste0(&quot;./&quot;, &quot;【&quot;, &quot;All&quot;, &quot;】&quot;, &quot;预审的意见.docx&quot;)
+)
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">准备工作</a></li>
+<li><a href="#set-up">set up</a></li>
+<li><a href="#%E8%AF%BB%E5%8F%96xlsx">读取.xlsx</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E6%9B%BF%E6%8D%A2%E6%A8%A1%E6%9D%BF%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97">循环替换模板中的文字</a></li>
+<li><a href="#merge-all-word-docx-into-a-single-file">merge all word docx into a single file</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://ezrilei.github.io/post/testing/">
+              <h3 class="post-title">
+                Testing
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://ezrilei.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
