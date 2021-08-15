@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ezrilei.github.io</id>
     <title>my blog</title>
-    <updated>2021-07-11T13:52:16.393Z</updated>
+    <updated>2021-08-15T15:18:47.256Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ezrilei.github.io"/>
     <link rel="self" href="https://ezrilei.github.io/atom.xml"/>
@@ -30,7 +30,7 @@ package<code>stringr</code>用于文本处理，在标记输出文档顺序的�
 </ul>
 <hr>
 <h2 id="set-up">set up</h2>
-<pre><code class="language-r">setwd(&quot;~/.../RwkSpace&quot;)
+<pre><code class="language-R">setwd(&quot;~/.../RwkSpace&quot;)
 
 library(xlsx)
 library(officer)
@@ -44,12 +44,12 @@ if (!dir.exists('output')) {
 <h2 id="读取xlsx">读取.xlsx</h2>
 <p>调用xlsx package 的 read.xlsx函数  读取.xlsx表格<br>
 稍后将把 .xlsx表格中的信息 填写到批文中。</p>
-<pre><code class="language-r">info.tt &lt;- read.xlsx(file = &quot;./2021年第一批发展对象_信息采集.xlsx&quot;,
+<pre><code class="language-R">info.tt &lt;- read.xlsx(file = &quot;./2021年第一批发展对象_信息采集.xlsx&quot;,
                      sheetIndex = 3, startRow = 2, stringsAsFactors = FALSE
                      ) 
 </code></pre>
 <h2 id="循环替换模板中的文字">循环替换模板中的文字</h2>
-<pre><code class="language-r">#### write word documents ####
+<pre><code class="language-R">#### write word documents ####
 for(i in 1:nrow(info.tt)){
   # 读取 模板.docx
   officer_doc &lt;- officer::read_docx(path = &quot;./【模板】预审意见.docx&quot;)
@@ -83,7 +83,7 @@ for(i in 1:nrow(info.tt)){
 </code></pre>
 <h2 id="merge-all-word-docx-into-a-single-file">merge all word docx into a single file</h2>
 <p>为了方便打印 将生成的数个word文档 合并成一个文档 中间用分页符隔开</p>
-<pre><code class="language-r">#### merge all word docx ####
+<pre><code class="language-R">#### merge all word docx ####
 # get ordered
 doc.path &lt;- paste0(&quot;./output/&quot;, 
                    list.files(path = &quot;./output&quot;)
