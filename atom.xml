@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ezrilei.github.io</id>
     <title>my blog</title>
-    <updated>2021-08-20T08:18:44.271Z</updated>
+    <updated>2021-08-21T14:59:13.103Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ezrilei.github.io"/>
     <link rel="self" href="https://ezrilei.github.io/atom.xml"/>
@@ -10,6 +10,28 @@
     <logo>https://ezrilei.github.io/images/avatar.png</logo>
     <icon>https://ezrilei.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, my blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Solution：MS excel 打印 跨页的 合并单元格 没有网格线]]></title>
+        <id>https://ezrilei.github.io/post/add-grid-when-printing-merged-cell/</id>
+        <link href="https://ezrilei.github.io/post/add-grid-when-printing-merged-cell/">
+        </link>
+        <updated>2021-08-20T13:00:03.000Z</updated>
+        <summary type="html"><![CDATA[<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108202137594.png" width = "75%" />]]></summary>
+        <content type="html"><![CDATA[<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108202137594.png" width = "75%" />
+<!-- more -->
+<h2 id="问题描述">问题描述</h2>
+<p>打印 跨页的 合并单元格 会出现部分单元格没有网格线的情况</p>
+<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108201646751.png" width = "75%" />
+<h2 id="解决方案">解决方案</h2>
+<p>页边距 - 管理自定义页边距 - 页面设置 - 工作表 - 网格线☑️</p>
+<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108201650651.png" width = "25%" />
+<!-- more -->
+<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108201651612.png" width = "50%" />
+<h2 id="结果">结果</h2>
+<p>跨页的 合并单元格 也会显示网格线了<br>
+<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108201652752.png" width = "75%" /></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[使用R语言批量写word文档]]></title>
         <id>https://ezrilei.github.io/post/write-word-doc-with-R/</id>
