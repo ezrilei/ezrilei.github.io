@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://ezrilei.github.io</id>
+    <id>http://localhost:4000</id>
     <title>my blog</title>
-    <updated>2021-08-21T15:53:57.809Z</updated>
+    <updated>2021-08-22T00:52:13.552Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://ezrilei.github.io"/>
-    <link rel="self" href="https://ezrilei.github.io/atom.xml"/>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://ezrilei.github.io/images/avatar.png</logo>
-    <icon>https://ezrilei.github.io/favicon.ico</icon>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2021, my blog</rights>
     <entry>
         <title type="html"><![CDATA[Solution：insert pdf to a blog page]]></title>
-        <id>https://ezrilei.github.io/post/inser-pdf-to-a-blog-page/</id>
-        <link href="https://ezrilei.github.io/post/inser-pdf-to-a-blog-page/">
+        <id>http://localhost:4000/post/inser-pdf-to-a-blog-page/</id>
+        <link href="http://localhost:4000/post/inser-pdf-to-a-blog-page/">
         </link>
         <updated>2021-08-21T15:30:20.000Z</updated>
-        <summary type="html"><![CDATA[<pre><code>&lt;iframe src=&quot;https://docs.google.com/gview?embedded=true&amp;url=http://infolab.stanford.edu/pub/papers/google.pdf&quot; style=&quot;width:800px; height:500px;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+        <summary type="html"><![CDATA[<p>display pdf files via <code>Google Drive Viewer</code> API</p>
+<pre><code>&lt;iframe src=&quot;https://docs.google.com/gview?embedded=true&amp;url=http://infolab.stanford.edu/pub/papers/google.pdf&quot; style=&quot;width:800px; height:500px;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
 </code></pre>
 ]]></summary>
-        <content type="html"><![CDATA[<pre><code>&lt;iframe src=&quot;https://docs.google.com/gview?embedded=true&amp;url=http://infolab.stanford.edu/pub/papers/google.pdf&quot; style=&quot;width:800px; height:500px;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+        <content type="html"><![CDATA[<p>display pdf files via <code>Google Drive Viewer</code> API</p>
+<pre><code>&lt;iframe src=&quot;https://docs.google.com/gview?embedded=true&amp;url=http://infolab.stanford.edu/pub/papers/google.pdf&quot; style=&quot;width:800px; height:500px;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
 </code></pre>
 <!-- more -->
 <iframe src="https://docs.google.com/gview?embedded=true&url=http://infolab.stanford.edu/pub/papers/google.pdf" style="width:800px; height:500px;" frameborder="0"></iframe>
 <hr>
-<p>将 github.com 替换为 raw.githubusercontent.com ，并去除 /blob ，即为该文件的下载链接。</p>
-<pre><code>&lt;iframe src=&quot;https://docs.google.com/gview?embedded=true&amp;url=https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pdf/pdf/%E5%8F%91%E5%B1%95%E5%85%9A%E5%91%98%E6%9D%90%E6%96%99%E6%B8%85%E5%8D%95_v3.2-20210727.pdf&quot; style=&quot;width:800px; height:500px;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+<ul>
+<li>将 github.com 替换为 raw.githubusercontent.com ，并去除 /blob ，即为该文件的下载链接。</li>
+<li>将 <code>style=&quot;width:800px; height:500px;&quot;</code> 改为 <code>style=&quot;width: 95%; height: 500px;&quot;</code></li>
+<li>增加居中<code>&lt;p align=&quot;center&quot;&gt;...&lt;/p&gt;</code></li>
+</ul>
+<pre><code>&lt;p align=&quot;center&quot;&gt;&lt;iframe src=&quot;https://docs.google.com/gview?embedded=true&amp;url=https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pdf/pdf/%E5%8F%91%E5%B1%95%E5%85%9A%E5%91%98%E6%9D%90%E6%96%99%E6%B8%85%E5%8D%95_v3.2-20210727.pdf&quot; style=&quot;width: 95%; height: 500px;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
 </code></pre>
-<iframe src="https://docs.google.com/gview?embedded=true&url=https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pdf/pdf/%E5%8F%91%E5%B1%95%E5%85%9A%E5%91%98%E6%9D%90%E6%96%99%E6%B8%85%E5%8D%95_v3.2-20210727.pdf" style="width:800px; height:500px;" frameborder="0"></iframe>
+<p align="center"><iframe src="https://docs.google.com/gview?embedded=true&url=https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pdf/pdf/%E5%8F%91%E5%B1%95%E5%85%9A%E5%91%98%E6%9D%90%E6%96%99%E6%B8%85%E5%8D%95_v3.2-20210727.pdf" style="width: 95%; height: 500px;" frameborder="0"></iframe></p>
 <p>参考：<a href="https://zhuanlan.zhihu.com/p/342135587">张晋, Typora嵌入视频和PDF</a></p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[Solution：MS excel 打印 跨页的 合并单元格 没有网格线]]></title>
-        <id>https://ezrilei.github.io/post/add-grid-when-printing-merged-cell/</id>
-        <link href="https://ezrilei.github.io/post/add-grid-when-printing-merged-cell/">
+        <id>http://localhost:4000/post/add-grid-when-printing-merged-cell/</id>
+        <link href="http://localhost:4000/post/add-grid-when-printing-merged-cell/">
         </link>
         <updated>2021-08-20T13:00:03.000Z</updated>
         <summary type="html"><![CDATA[<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108202137594.png" width = "75%" />]]></summary>
@@ -55,8 +61,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[使用R语言批量写word文档]]></title>
-        <id>https://ezrilei.github.io/post/write-word-doc-with-R/</id>
-        <link href="https://ezrilei.github.io/post/write-word-doc-with-R/">
+        <id>http://localhost:4000/post/write-word-doc-with-R/</id>
+        <link href="http://localhost:4000/post/write-word-doc-with-R/">
         </link>
         <updated>2021-07-06T00:26:22.000Z</updated>
         <content type="html"><![CDATA[<h2 id="原理">原理</h2>
@@ -152,8 +158,8 @@ print(doc_merge,
     </entry>
     <entry>
         <title type="html"><![CDATA[Testing]]></title>
-        <id>https://ezrilei.github.io/post/testing/</id>
-        <link href="https://ezrilei.github.io/post/testing/">
+        <id>http://localhost:4000/post/testing/</id>
+        <link href="http://localhost:4000/post/testing/">
         </link>
         <updated>2021-07-05T14:36:02.000Z</updated>
         <content type="html"><![CDATA[<html xmlns:v="urn:schemas-microsoft-com:vml"
@@ -8492,8 +8498,8 @@ style='font-size:11.0pt;font-family:Consolas'><o:p></o:p></span></p>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://ezrilei.github.io/post/hello-gridea/</id>
-        <link href="https://ezrilei.github.io/post/hello-gridea/">
+        <id>http://localhost:4000/post/hello-gridea/</id>
+        <link href="http://localhost:4000/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
