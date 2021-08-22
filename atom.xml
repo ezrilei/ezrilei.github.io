@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://ezrilei.github.io</id>
     <title>my blog</title>
-    <updated>2021-08-22T00:52:13.552Z</updated>
+    <updated>2021-08-22T00:55:00.669Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://ezrilei.github.io"/>
+    <link rel="self" href="https://ezrilei.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://ezrilei.github.io/images/avatar.png</logo>
+    <icon>https://ezrilei.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, my blog</rights>
     <entry>
         <title type="html"><![CDATA[Solution：insert pdf to a blog page]]></title>
-        <id>http://localhost:4000/post/inser-pdf-to-a-blog-page/</id>
-        <link href="http://localhost:4000/post/inser-pdf-to-a-blog-page/">
+        <id>https://ezrilei.github.io/post/inser-pdf-to-a-blog-page/</id>
+        <link href="https://ezrilei.github.io/post/inser-pdf-to-a-blog-page/">
         </link>
         <updated>2021-08-21T15:30:20.000Z</updated>
         <summary type="html"><![CDATA[<p>display pdf files via <code>Google Drive Viewer</code> API</p>
@@ -39,8 +39,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Solution：MS excel 打印 跨页的 合并单元格 没有网格线]]></title>
-        <id>http://localhost:4000/post/add-grid-when-printing-merged-cell/</id>
-        <link href="http://localhost:4000/post/add-grid-when-printing-merged-cell/">
+        <id>https://ezrilei.github.io/post/add-grid-when-printing-merged-cell/</id>
+        <link href="https://ezrilei.github.io/post/add-grid-when-printing-merged-cell/">
         </link>
         <updated>2021-08-20T13:00:03.000Z</updated>
         <summary type="html"><![CDATA[<img src="https://raw.githubusercontent.com/ezrilei/WhereThePicLay/pic/img/202108202137594.png" width = "75%" />]]></summary>
@@ -61,8 +61,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[使用R语言批量写word文档]]></title>
-        <id>http://localhost:4000/post/write-word-doc-with-R/</id>
-        <link href="http://localhost:4000/post/write-word-doc-with-R/">
+        <id>https://ezrilei.github.io/post/write-word-doc-with-R/</id>
+        <link href="https://ezrilei.github.io/post/write-word-doc-with-R/">
         </link>
         <updated>2021-07-06T00:26:22.000Z</updated>
         <content type="html"><![CDATA[<h2 id="原理">原理</h2>
@@ -158,8 +158,8 @@ print(doc_merge,
     </entry>
     <entry>
         <title type="html"><![CDATA[Testing]]></title>
-        <id>http://localhost:4000/post/testing/</id>
-        <link href="http://localhost:4000/post/testing/">
+        <id>https://ezrilei.github.io/post/testing/</id>
+        <link href="https://ezrilei.github.io/post/testing/">
         </link>
         <updated>2021-07-05T14:36:02.000Z</updated>
         <content type="html"><![CDATA[<html xmlns:v="urn:schemas-microsoft-com:vml"
@@ -8498,8 +8498,8 @@ style='font-size:11.0pt;font-family:Consolas'><o:p></o:p></span></p>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>http://localhost:4000/post/hello-gridea/</id>
-        <link href="http://localhost:4000/post/hello-gridea/">
+        <id>https://ezrilei.github.io/post/hello-gridea/</id>
+        <link href="https://ezrilei.github.io/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
