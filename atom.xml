@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ezrilei.github.io</id>
     <title>my blog</title>
-    <updated>2021-08-22T11:35:40.296Z</updated>
+    <updated>2021-08-22T11:39:30.854Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ezrilei.github.io"/>
     <link rel="self" href="https://ezrilei.github.io/atom.xml"/>
@@ -207,9 +207,9 @@ for(i in 1:nrow(tt.info)){
   ....
 </code></pre>
 <p>更多的时候我们需要和.xlsx表格的数据顺序一致，比如：</p>
-<pre><code>  [1] ./output_0822_0956/tmp/&quot;1【宋江】慰问信.docx&quot;     
-  [2] ./output_0822_0956/tmp/&quot;2【卢俊义】慰问信.docx&quot;    
-  [3] ./output_0822_0956/tmp/&quot;3【吴用】慰问信.docx&quot;    
+<pre><code>  [1] &quot;./output_0822_0956/tmp/1【宋江】慰问信.docx&quot;     
+  [2] &quot;./output_0822_0956/tmp/2【卢俊义】慰问信.docx&quot;    
+  [3] &quot;./output_0822_0956/tmp/3【吴用】慰问信.docx&quot;    
   ....
 </code></pre>
 <p>所以，这里我用正则表达式的 look behind<code>(?&lt;=pattern)</code>和look ahead positive assert<code>(?=pattern)</code>，找位于<code>tmp/</code>后面，<code>【</code>前面的字符串，也就是我们之前写在文件名中的序号，将字符串序号转换成<code>numeric()</code>，再排序<code>order()</code>。</p>
