@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ezrilei.github.io</id>
     <title>my blog</title>
-    <updated>2021-08-22T11:45:30.418Z</updated>
+    <updated>2022-01-14T00:56:20.387Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ezrilei.github.io"/>
     <link rel="self" href="https://ezrilei.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://ezrilei.github.io/images/avatar.png</logo>
     <icon>https://ezrilei.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, my blog</rights>
+    <rights>All rights reserved 2022, my blog</rights>
     <entry>
         <title type="html"><![CDATA[Solution：insert pdf to a blog page]]></title>
         <id>https://ezrilei.github.io/post/inser-pdf-to-a-blog-page/</id>
